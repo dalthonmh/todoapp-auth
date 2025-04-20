@@ -21,7 +21,12 @@ func main() {
 
 	// Configuración del servidor Gin
 	r := gin.Default()
-	r.Use(cors.Default())
+	r.Use(cors.New(cors.Config{
+		AllowAllOrigins:  true,
+		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},
+		AllowCredentials: true,
+	}))
 	routes.AuthRoutes(r, db)
 
 	// Iniciar el servidor
