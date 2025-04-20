@@ -2,29 +2,27 @@ package main
 
 import (
 	"log"
-	"os"
-
-	"github.com/gin-gonic/gin"
-	"gorm.io/driver/mysql"
-	"gorm.io/gorm"
 
 	"github.com/dalthonmh/todoapp-auth/models"
 	"github.com/dalthonmh/todoapp-auth/routes"
+	"github.com/dalthonmh/todoapp-auth/utils"
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	dsn := os.Getenv("DB_DSN")
-	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
-	if err != nil {
-		log.Fatal("Error al conectar a la base de datos:", err)
-	}
+	db := utils.ConnectWithRetry()
 
 	// Migración automática
-	db.AutoMigrate(&models.User{})
+	if err := db.AutoMigrate(&models.User{}); err != nil {
+		log.Fatal("Error al migrar el modelo:", err)
+	}
 
+	// Configuración del servidor Gin
 	r := gin.Default()
-
 	routes.AuthRoutes(r, db)
 
-	r.Run(":8080")
+	// Iniciar el servidor
+	if err := r.Run(":8080"); err != nil {
+		log.Fatal("Error al iniciar el servidor:", err)
+	}
 }
