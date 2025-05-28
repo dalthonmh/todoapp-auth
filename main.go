@@ -27,6 +27,13 @@ func main() {
 		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},
 		AllowCredentials: true,
 	}))
+	// Ruta de status para saber si el servidor está corriendo
+	r.GET("/api/auth", func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			"message": "Auth microservice running",
+		})
+	})
+
 	routes.AuthRoutes(r, db)
 
 	// Iniciar el servidor

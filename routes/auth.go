@@ -8,6 +8,6 @@ import (
 )
 
 func AuthRoutes(r *gin.Engine, db *gorm.DB) {
-	r.POST("/register", controllers.Register(db))
-	r.POST("/login", controllers.Login(db))
+	r.POST("/api/auth/register", controllers.Register(db))
+	r.POST("/api/auth/login", controllers.Login(db))
 }
