@@ -1,10 +1,10 @@
-# 🛡️ Auth API - Microservicio de Autenticación con Go + MySQL + JWT
+# Auth API - Microservicio de Autenticación con Go + MySQL + JWT
 
-Este es un microservicio de autenticación simple desarrollado en **Go (Golang)**. Permite a los usuarios **registrarse** y **loguearse** utilizando **JWT** para generar tokens de sesión. Ideal como base para proyectos que requieren autenticación básica.
+Este es un microservicio de autenticación desarrollado en **Go (Golang)**. Permite a los usuarios **registrarse** y **loguearse** utilizando **JWT** para generar tokens de sesión. Ideal como base para proyectos que requieren autenticación básica.
 
 ---
 
-## 🚀 Tecnologías utilizadas
+## Tecnologías utilizadas
 
 - [Golang](https://golang.org/)
 - [Gin](https://github.com/gin-gonic/gin) - Framework HTTP
@@ -15,7 +15,7 @@ Este es un microservicio de autenticación simple desarrollado en **Go (Golang)*
 
 ---
 
-## 📦 Instalación
+## Instalación
 
 ### 1. Clona el repositorio
 
@@ -44,9 +44,9 @@ Esto levantará:
 - El backend en Go en http://localhost:8080
 - Una instancia de MySQL en el puerto 3306
 
-## 📚 Endpoints
+## Endpoints
 
-### 📌 POST /register
+### POST /register
 
 Registra un nuevo usuario.
 Body:
@@ -66,7 +66,7 @@ respuesta:
 }
 ```
 
-### 📌 POST /login
+### POST /login
 
 Autentica un usuario y devuelve un JWT.
 

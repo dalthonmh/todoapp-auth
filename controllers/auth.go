@@ -16,25 +16,25 @@ func Register(db *gorm.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var input models.User
 		if err := c.ShouldBindJSON(&input); err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "Datos inválidos"})
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid data"})
 			return
 		}
 
-		// Hashear contraseña
+		// Hash password
 		hashed, err := bcrypt.GenerateFromPassword([]byte(input.Password), 12)
 		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "Error al procesar la contraseña"})
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Error processing password"})
 			return
 		}
 		input.Password = string(hashed)
 
-		// Crear usuario
+		// Create user
 		if err := db.Create(&input).Error; err != nil {
-			c.JSON(http.StatusConflict, gin.H{"error": "Usuario ya existe"})
+			c.JSON(http.StatusConflict, gin.H{"error": "User already exists"})
 			return
 		}
 
-		c.JSON(http.StatusCreated, gin.H{"message": "Usuario registrado con éxito"})
+		c.JSON(http.StatusCreated, gin.H{"message": "User registered successfully"})
 	}
 }
 
@@ -42,25 +42,25 @@ func Login(db *gorm.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var input models.User
 		if err := c.ShouldBindJSON(&input); err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "Datos inválidos"})
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid data"})
 			return
 		}
 
 		var user models.User
 		if err := db.First(&user, "username = ?", input.Username).Error; err != nil {
-			c.JSON(http.StatusUnauthorized, gin.H{"error": "Usuario no encontrado"})
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "User not found"})
 			return
 		}
 
 		if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(input.Password)); err != nil {
-			c.JSON(http.StatusUnauthorized, gin.H{"error": "Contraseña incorrecta"})
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "Incorrect password"})
 			return
 		}
 
-		// Generar token
+		// Generate token
 		token, err := utils.GenerateJWT(user.Username)
 		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "No se pudo generar el token"})
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Could not generate token"})
 			return
 		}
 

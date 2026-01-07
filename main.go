@@ -14,12 +14,12 @@ func main() {
 
 	db := utils.ConnectWithRetry()
 
-	// Migración automática
+	// Automatic migration
 	if err := db.AutoMigrate(&models.User{}); err != nil {
-		log.Fatal("Error al migrar el modelo:", err)
+		log.Fatal("Error migrating the model:", err)
 	}
 
-	// Configuración del servidor Gin
+	// Gin server configuration
 	r := gin.Default()
 	r.Use(cors.New(cors.Config{
 		AllowAllOrigins:  true,
@@ -27,7 +27,7 @@ func main() {
 		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},
 		AllowCredentials: true,
 	}))
-	// Ruta de status para saber si el servidor está corriendo
+	// Check status
 	r.GET("/api/auth", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "Auth microservice running",
@@ -36,8 +36,8 @@ func main() {
 
 	routes.AuthRoutes(r, db)
 
-	// Iniciar el servidor
+	// Init server
 	if err := r.Run(":8080"); err != nil {
-		log.Fatal("Error al iniciar el servidor:", err)
+		log.Fatal("Error starting the server:", err)
 	}
 }

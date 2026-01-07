@@ -18,14 +18,14 @@ func ConnectWithRetry() *gorm.DB {
 	for i := 0; i < 10; i++ {
 		db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
 		if err == nil {
-			log.Println("✅ Conectado a la base de datos")
+			log.Println("Connected to the database successfully")
 			return db
 		}
 
-		log.Printf("Intento %d: error al conectar a la base de datos: %v", i+1, err)
+		log.Printf("Attempt %d: error connecting to the database: %v", i+1, err)
 		time.Sleep(3 * time.Second)
 	}
 
-	log.Fatal("❌ No se pudo conectar a la base de datos después de múltiples intentos")
+	log.Fatal("Could not connect to the database after multiple attempts")
 	return nil
 }
