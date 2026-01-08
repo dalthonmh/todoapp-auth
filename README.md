@@ -1,85 +1,85 @@
-# Auth API - Microservicio de Autenticación con Go + MySQL + JWT
+# Auth API
 
-Este es un microservicio de autenticación desarrollado en **Go (Golang)**. Permite a los usuarios **registrarse** y **loguearse** utilizando **JWT** para generar tokens de sesión. Ideal como base para proyectos que requieren autenticación básica.
+This is a simple authentication microservice built with **Go (Golang)**. It allows users to **register** and **log in**, using **JWT** tokens for session management. Perfect as a starting point for projects that need basic authentication.
 
 ---
 
-## Tecnologías utilizadas
+## Technologies Used
 
 - [Golang](https://golang.org/)
-- [Gin](https://github.com/gin-gonic/gin) - Framework HTTP
+- [Gin](https://github.com/gin-gonic/gin) - HTTP Framework
 - [MySQL](https://www.mysql.com/)
-- [GORM](https://gorm.io/index.html) - ORM para Go
-- [JWT](https://github.com/golang-jwt/jwt) - Tokens para autenticación
-- [Docker](https://www.docker.com/) + Docker Compose
+- [GORM](https://gorm.io/index.html) - ORM for Go
+- [JWT](https://github.com/golang-jwt/jwt) - Authentication Tokens
+- [Docker](https://www.docker.com/)
 
 ---
 
-## Instalación
+## Installation
 
-### 1. Clona el repositorio
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/dalthonmh/todoapp-auth.git
 cd todoapp-auth
 ```
 
-### 2. Configura el .env
+### 2. Set up the .env file
 
-Crea un archivo .env en la raíz del proyecton con el siguiente contenido
+Create a `.env` file in the project root with the following content:
 
 ```bash
 DB_DSN=root:password@tcp(mysql:3306)/authdb?charset=utf8mb4 parseTime=True&loc=Local
-JWT_SECRET=supersecreto
+JWT_SECRET=supersecret
 ```
 
-### 3. Ejecuta el proyecto con Docker
+### 3. Run the project with Docker
 
 ```bash
-docker compose up --build
+docker compose up -d --build
 ```
 
-Esto levantará:
+This will start:
 
-- El backend en Go en http://localhost:8080
-- Una instancia de MySQL en el puerto 3306
+- The Go backend at http://localhost:8080
+- A MySQL instance on port 3306
 
 ## Endpoints
 
 ### POST /register
 
-Registra un nuevo usuario.
-Body:
+Register a new user.
+Request body:
 
 ```json
 {
-  "username": "usuario1",
+  "username": "user1",
   "password": "123456"
 }
 ```
 
-respuesta:
+Response:
 
 ```json
 {
-  "message": "Usuario registrado con éxito"
+  "message": "User registered successfully"
 }
 ```
 
 ### POST /login
 
-Autentica un usuario y devuelve un JWT.
+Authenticate a user and return a JWT token.
 
-Body:
+Request body:
 
 ```json
 {
-  "username": "usuario1",
+  "username": "user1",
   "password": "123456"
 }
 ```
 
-respuesta:
+Response:
 
 ```json
 {
