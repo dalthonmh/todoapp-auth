@@ -1,4 +1,4 @@
-name: ToDo-APP auth
+name: ToDo-APP Auth
 
 on:
   push:

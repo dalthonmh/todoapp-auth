@@ -1,4 +1,4 @@
-# Auth API
+# ToDo-APP Auth
 
 This is a simple authentication microservice built with **Go (Golang)**. It allows users to **register** and **log in**, using **JWT** tokens for session management. Perfect as a starting point for projects that need basic authentication.
 
